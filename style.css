@@ -2,6 +2,7 @@ body {
 	color: #666;
 	background-color: #f3f3f3;
 	font-family: sans-serif;
+	padding: 50px 100px;
 }
 #faketextarea {
     min-width: 100%;

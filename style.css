@@ -1,0 +1,19 @@
+body {
+	color: #666;
+	background-color: #f3f3f3;
+	font-family: sans-serif;
+}
+#faketextarea {
+    min-width: 100%;
+    min-height: 200px;
+    border: 1px solid #f0f;
+    margin-bottom: 10px;
+}
+#textareasrc {
+    min-width: 99%;
+    margin-top: 10px;
+}
+h3 {
+    margin: 5px 0px;
+    color: #999;
+}

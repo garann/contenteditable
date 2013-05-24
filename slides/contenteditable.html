@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>contenteditable: Roll for sanity</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h1>contenteditable</h1>
+					<h2>roll for sanity</h2>
+					<p>
+						<small><a href="http://garann.com">Garann Means</a> ⨔ <a href="http://twitter.com/garannm">@garannm</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>mythos problems</h2>
+					<img src="img/callofcthulhu.jpg" />
+				</section>
+
+				<section>
+					<h2>how is a cthulhu like a contenteditable?</h2>
+					<ul>
+						<li>initially: neat little magic tricks</li>
+						<li>soon: arcane incantations, horrifying power</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>origins</h2>
+				</section>
+
+				<section>
+					<h2>IE 5.5</h2>
+					<ul>
+						<li>first appearance</li>
+						<li>hazily implemented</li>
+						<li>used with designMode</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>other browsers</h2>
+					<ul>
+						<li>adopted it</li>
+						<li>provided new, different APIs</li>
+						<li><a href="http://www.quirksmode.org/dom/execCommand.html">this chart is hilarious</a></li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>the HTML5s</h2>
+					<ul>
+						<li>applies to any element</li>
+						<li>designWho?</li>
+						<li>(just playing, designMode still exists)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>that's one attribute, though</h2>
+				</section>
+
+				<section>
+					<h2>supporting APIs</h2>
+					<ul>
+						<li>fragmented in early IEs and contemporaries</li>
+						<li>now under W3C's umbrella</li>
+						<li>implementations becoming more standardized</li>
+						<li>browser support documentation not so great</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>indirect requirements</h2>
+					<ul>
+						<li>examining selected text</li>
+						<li>changing selections</li>
+						<li>contextualizing commands for selections</li>
+						<li>gets a little shadowy</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>this is contenteditable</h2>
+					<img src="img/plush-cthulhu.jpg" />
+				</section>
+
+				<section>
+					<h2>this is execCommand</h2>
+					<a href="http://www.flickr.com/photos/captainspunky/5112023873/in/photostream/"><img src="img/greasy-cthulhu.jpg" /></a>
+				</section>
+
+				<section>
+					<h2>contenteditable is easy and fun</h2>
+				</section>
+
+				<section>
+					<h2>using it</h2>
+					<ul>
+						<li>apply the attribute to an element</li>
+						<li>(user edits some text)</li>
+						<li>submit changes explicitly using a button or link</li>
+						<li>save changes immediately using the input event</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>minimal JS</h2>
+					<pre><code>
+var txt = $( "#editregion" );
+txt[0].contentEditable = true;
+txt.focus();
+txt.on( "blur", function() {
+    $( "#editsource" ).val( txt.html().toString() );
+});
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>congratulations!</h2>
+					<h3 class="fragment">you have made a textarea</h3>
+				</section>
+
+				<section>
+					<h2>how contenteditable is useful</h2>
+					<ul>
+						<li>no need to toggle between display/input state</li>
+						<li>containing undisplayed markup</li>
+						<li>providing lightweight text editors</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>some caveats</h2>
+					<ul>
+						<li>default editing is just text</li>
+						<li>focus can be stolen by other elements</li>
+						<li>have to kind of feel your way along</li>
+						<li class="fragment">and also the inevitable descent into madness</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>this is contenteditable</h2>
+					<div contenteditable>The most merciful thing in the world, I think, is the inability of the human mind to correlate all its contents. We live on a placid island of ignorance in the midst of black seas of infinity, and it was not meant that we should voyage far. The sciences, each straining in its own direction, have hitherto harmed us little; but some day the piecing together of dissociated knowledge will open up such terrifying vistas of reality, and of our frightful position therein, that we shall either go mad from the revelation or flee from the deadly light into the peace and safety of a new dark age.</div>
+				</section>
+
+				<section>
+					<h2>this is execCommand :</h2>
+				</section>
+
+				<section>
+					<button class="demo-ec">bold</button> <button class="demo-ec">italic</button>
+					<div contenteditable>The most merciful thing in the world, I think, is the inability of the human mind to correlate all its contents. We live on a placid island of ignorance in the midst of black seas of infinity, and it was not meant that we should voyage far. The sciences, each straining in its own direction, have hitherto harmed us little; but some day the piecing together of dissociated knowledge will open up such terrifying vistas of reality, and of our frightful position therein, that we shall either go mad from the revelation or flee from the deadly light into the peace and safety of a new dark age.</div>
+				</section>
+
+				<section>
+					<h2>the code is simple</h2>
+					<pre><code>
+var demoBtns = document.querySelectorAll( "button.demo-ec" );
+for ( var i = 0; i < demoBtns.length; i++ ) {
+	demoBtns[i].addEventListener( "click", function( e ) {
+		document.execCommand( this.innerText );
+		return false;
+	});
+}
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>three arguments</h2>
+					<ol>
+						<li>the command ID</li>
+						<li>show UI boolean</li>
+						<li>value</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>command IDs (W3C)</h2>
+					<ul style="float:left;padding-left:100px;">
+						<li>bold</li>
+					    <li>createLink</li>
+					    <li>delete</li>
+					    <li>formatBlock</li>
+					    <li>forwardDelete</li>
+					    <li>insertHTML</li>
+					    <li>insertImage</li>
+					    <li>insertLineBreak</li>
+					    <li>insertOrderedList</li>
+					    <li>insertUnorderedList</li>
+					</ul>
+					<ul style="float:left;padding-left:50px;">
+					    <li>insertParagraph</li>
+					    <li>insertText</li>
+					    <li>italic</li>
+					    <li>redo</li>
+					    <li>selectAll</li>
+					    <li>subscript</li>
+					    <li>superscript</li>
+					    <li>undo</li>
+					    <li>unlink</li>
+					    <li>unselect</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>arcane magic (MDN)</h2>
+					<ul>
+						<li>backColor</li>
+					    <li>contentReadOnly</li>
+					    <li>copy</li>
+					    <li>cut</li>
+					    <li>decreaseFontSize</li>
+					    <li>enableInlineTableEditing</li>
+					    <li>enableObjectResizing</li>
+					    <li>fontName</li>
+					    <li>fontSize</li>
+					    <li>foreColor</li>
+					    <li>heading</li>
+					    <li>hiliteColor</li>
+					    <li>increaseFontSize</li>
+					</ul>
+					<ul>
+					    <li>indent</li>
+					    <li>insertBrOnReturn</li>
+					    <li>insertHorizontalRule</li>
+					    <li>justifyCenter</li>
+					    <li>justifyFull</li>
+					    <li>justifyLeft</li>
+					    <li>justifyRight</li>
+					    <li>outdent</li>
+					    <li>paste</li>
+					    <li>removeFormat</li>
+					    <li>strikeThrough</li>
+					    <li>styleWithCSS</li>
+					    <li>underline</li>
+					</ul>
+					<p><small><a href="https://developer.mozilla.org/en-US/docs/Rich-Text_Editing_in_Mozilla#Executing_Commands">(ref)</a></small></p>
+				</section>
+
+				<section>
+					<h2>IE commands</h2>
+					<img src="img/nope.gif" />
+					<p><small><a href="http://msdn.microsoft.com/en-us/library/ms536419(v=VS.85).aspx">But you go ahead and knock yourself out.</a></small></p>
+				</section>
+
+				<section>
+					<h2>the showUI argument</h2>
+					<img src="img/showui.png" />
+					<ul>
+						<li>generally unimplemented</li>
+						<li>if true and implemented, shows a vendor UI</li>
+						<li>irrelevant for simple commands</li>
+						<li>unspecified in the standard</li>
+						<li>..but still exists</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>the value argument</h2>
+					<ul>
+						<li>for complex commands</li>
+						<li>URLs, HTML, CSS, etc.</li>
+						<li>attributes of inserted tags</li>
+						<li>or the tags themselves</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>sounds fun, right?</h2>
+					<img src="img/nope2.gif" class="fragment" />
+				</section>
+
+				<section>
+					<h2>there are some issues</h2>
+					<ul>
+						<li>current selection can affect whether commands work</li>
+						<li>same commands produce different markup in different browsers</li>
+						<li>values may not be faithfully appended</li>
+						<li>values may be quietly rejected</li>
+						<li>none of this is documented like.. anywhere</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>useful exercise:</h2>
+					<h3>add a class to an element in a contenteditable area</h3>
+					<button class="demo-ec-valu">styleWithCSS</button>
+					<button class="demo-ec-valu">formatBlock</button> 
+					<button class="demo-ec-valu">insertHTML</button>
+					<div contenteditable>The most merciful thing in the world, I think, is the inability of the human mind to correlate all its contents. We live on a placid island of ignorance in the midst of black seas of infinity, and it was not meant that we should voyage far. The sciences, each straining in its own direction, have hitherto harmed us little; but some day the piecing together of dissociated knowledge will open up such terrifying vistas of reality, and of our frightful position therein, that we shall either go mad from the revelation or flee from the deadly light into the peace and safety of a new dark age.</div>	
+				</section> 
+
+				<section>
+					<h2>let's talk about what works</h2>
+					<ul>
+						<li>traditional "marking up"</li>
+						<li>lists, indentation</li>
+						<li>undo, redo, basic selection control</li>
+						<li>colors and fonts (even though they shouldn't)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>how about what's generated?</h2>
+					<ul>
+						<li>generally, tags as expected</li>
+						<li>IE uses <code>strong</code> and <code>em</code></li>
+						<li>non-standard commands get a <code>span</code> with inline style</li>
+						<li>..except in IE, where they get a <code>font</code> tag</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>how about what's MAGICALLY generated</h2>
+					<h3>blocks, y'all</h3>
+					<ul>
+						<li>maybe it's a <code>div</code>, maybe it's a <code>p</code> !</li>
+						<li>maybe it's nothing at all</li>
+						<li>can be changed if formatBlock works</li>
+						<li>..but it doesn't in IE</li>
+						<li>..and only allows HTML4 block elements in FF</li>
+						<li>..and your formatted block might still be wrapped in the default</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>the (standard) commands in detail</h2>
+				</section>
+
+				<section>
+					<h2>works as expected</h2>
+					<ul>
+						<li>bold, italic, subscript, superscript</li>
+						<li>createLink, unlink</li>
+						<li>delete, forwardDelete (except IE)</li>
+						<li>insertOrderedList, insertUnorderedList</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>formatBlock</h2>
+					<ul>
+						<li>accepts tags only</li>
+						<li>no attributes</li>
+						<li>finite list of options in FF</li>
+						<li>no support in IE</li>
+						<li>alters default block type of subsequent blocks added by pressing enter</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>insertHTML, insertImage, insertLineBreak, insertParagraph, insertText</h3>
+					<ul>
+						<li>faithfully rendered in Chrome and FF</li>
+						<li>nothing at all in IE</li>
+						<li>tries really hard to parse invalid markup</li>
+					</ul><br/>
+					<img src="img/badinsertHTML.png" /><br/>
+					<ul>
+						<li>escapes HTML in insertText correctly</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>redo, undo</h2>
+					<ul>
+						<li>work well in FF and Chrome</li>
+						<li>undo works in IE, but has to undo important secret IE stuff before undoing user edits</li>
+						<li>no redo in IE</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>selectAll, unselect</h2>
+					<ul>
+						<li>work in Chrome</li>
+						<li>selectAll works in FF</li>
+						<li>selectAll selects everything in IE, regardless of focus</li>
+						<li>no unselect in FF or IE</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>what this means for you</h2>
+					<ul>
+						<li>don't expect consistent markup</li>
+						<li>free-form values for complex elements basically a no-no</li>
+						<li>no reliable way to allow users to create "special" content areas</li>
+						<li>minimal formatting works, a CMS won't</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>execCommand is not easy and fun</h2>
+					<img src="img/despair.jpg" />
+				</section>
+
+				<section>
+					<h2>but you don't have to rely on it exclusively</h2>
+					<ul>
+						<li>contenteditable allows the user to position the cursor</li>
+						<li>or to select text</li>
+						<li>you can insert markup regardless of browser</li>
+						<li>you can wrap a selection with tags</li>
+						<li>this, also, is neither easy nor fun</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>amazingly, there's some browser consistency</h2>
+					<ul>
+						<li><code>window.getSelection()</code></li>
+						<li><code>[Selection].anchorNode</code></li>
+						<li><code>[Selection].focusNode</code></li>
+						<li>and more!</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>all we need to wrap selections</h2>
+					<pre><code>
+$( "section" ).on( "click", "button.cust", function( e ) {
+    var sel = window.getSelection(),
+        start = sel.anchorOffset,
+        end = sel.focusOffset,
+        anchor = sel.anchorNode,
+        anchorHTML,
+        focus = sel.focusNode,
+        focusHTML,
+        starttag = '<div class="custom">',
+        endtag = '</div>',
+        newHTML = "",
+        anchorParent = anchor.parentNode;
+    
+    if ( start == 0 && anchor.nodeValue.length == anchor.parentNode.innerHTML.length ) {
+        anchor = anchorParent;
+        anchorParent = anchorParent.parentNode;
+    }
+    if ( end == focus.nodeValue.length && focus.nodeValue.length == focus.parentNode.innerHTML.length ) {
+        focus = focus.parentNode;
+    }
+    
+    // nodes must be at same depth
+    if ( anchorParent != focus.parentNode ) {
+        return false;
+    }
+    
+    $( anchorParent ).contents().each( function( el ) {
+        if ( this == anchor && this == focus ) {
+            if ( this.nodeType == 1) {
+                newHTML += starttag + this.outerHTML + endtag;
+            } else if ( this.nodeType == 3 ) {
+                anchorHTML = this.nodeValue;
+                newHTML += anchorHTML.substring( 0, start ) + starttag + anchorHTML.substring( start, end ) + endtag + anchorHTML.substring( end );
+            }
+        } else if ( this == anchor ) {
+            if ( this.nodeType == 1 ) {
+                newHTML += starttag + this.outerHTML;
+            } else if ( this.nodeType == 3 ) {
+                anchorHTML = this.nodeValue;
+                newHTML += anchorHTML.substring( 0, start ) + starttag + anchorHTML.substring( start );
+            }                
+        } else if ( this == focus ) {
+            if ( this.nodeType == 1 ) {
+                newHTML += this.outerHTML + endtag;
+            } else if ( this.nodeType == 3 ) {
+                focusHTML = this.nodeValue;
+                newHTML += focusHTML.substring( 0, end ) + endtag + focusHTML.substring( end );
+            }
+        } else {
+            newHTML += this.nodeType == 1 ? this.outerHTML : this.nodeValue;
+        }
+    });
+    anchorParent.innerHTML = newHTML;
+    
+    return false;
+});
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>that's minimally functional</h2>
+					<ul>
+						<li>won't wrap nodes that don't share a parent</li>
+						<li>hard-coded wrapping HTML</li>
+						<li>only works for forward selections (LTR in English)</li>
+						<li>probably a bunch more edge cases</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>but try not to think too hard about that</h2>
+					<img src="img/aquaman.jpg" />
+				</section>
+
+				<section>
+					<h2>gaining access to selections</h2>
+					<ul>
+						<li><code>window.getSelection()</code> works in modern browsers</li>
+						<li>can access text in selection with <code>toString()</code></li>
+						<li>can also access and manipulate ranges in the selection</li>
+						<li class="fragment">what's a range?</li>
+					</ul>
+					<img src="img/futuredraft.png" height="300" class="fragment" />
+				</section>
+
+				<section>
+					<h2>figuring out what the heck is in a selection</h2>
+					<ul>
+						<li><code>anchorNode</code> and <code>focusNode</code> define beginning and end</li>
+						<li>selection may contain additional child nodes</li>
+						<li>find a common parent, loop through child nodes testing for equality</li>
+						<li>any of these nodes may be text nodes</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>text nodes</h2>
+					<ul>
+						<li><code>nodeValue</code> instead of <code>innerHTML</code></li>
+						<li>can't have HTML added to them</li>
+						<li>in every tag, around anything that's not a tag</li>
+						<li>no selector on earth will find them</li>
+						<li>hence, looping and testing for equality</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>even more fun</h2>
+					<ul>
+						<li>selections prefer to be text nodes</li>
+						<li>selecting an entire element frequently provides a child text node</li>
+						<li>to wrap an element, probably have to get text node's parent manually</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>but it works</h2>
+					<p><a href="http://garann.github.io/contenteditable/">http://garann.github.io/contenteditable</a></p>
+				</section>
+
+				<section>
+					<h2>positioning the cursor</h2>
+					<ul>
+						<li>execCommands acting on a selection maintain it</li>
+						<li>IE had a cool method called <code>setSelection()</code></li>
+						<li>cache <code>getRangeAt(0)</code>, do work, reset, done!</li>
+						<li>you'd think you could fake that by manually setting a selection's ranges</li>
+						<li>..but you'd be wrong</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>positioning the cursor inside a container</h2>
+					<pre><code>
+txt.focus();
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>positioning the cursor at the end of a container</h2>
+					<pre><code contenteditable>
+sel.selectAllChildren( txt[0] );
+sel.collapseToEnd();
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>what have we learned?</h2>
+					<ul>
+						<li>how to work with contenteditable at an advanced level</li>
+						<li>what not to expect</li>
+						<li>what to do instead</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>"i've never once needed contenteditable"</h2>
+					<ul>
+						<li>cutting edge browser features are awesome</li>
+						<li>they attract a lot of attention, get implemented quickly</li>
+						<li>the more esoteric bits, especially the old ones, can get left behind</li>
+						<li>being able to work with those is a powerful skill</li>
+						<li>some of the most interesting stuff you can do with a browser has nothing to do with WebGL</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>working with ancient APIs</h2>
+					<ul>
+						<li>assume the documentation is out-of-date</li>
+						<li>assume the standards are at least partially unimplemented</li>
+						<li>write a test page</li>
+						<li>build the documentation you need from console.dir</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>sanity is overrated anyway</h2>
+					<img src="img/cthulhubuddies.jpg" height="500" />
+				</section>
+
+				<section>
+					<h2>Ia! Ia!</h2>
+					<img src="img/youcandoit.jpg" height="550" />
+					<p>
+						<small><a href="http://garann.com">garann.com</a> ⨔ <a href="http://twitter.com/garannm">@garannm</a></small>
+					</p>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: "cthulhu", // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+			var demoBtns = document.querySelectorAll( "button.demo-ec" ),
+				 valBtns = document.querySelectorAll( "button.demo-ec-valu" ),
+				 valu;
+			for ( var i=0; i<demoBtns.length; i++ ) {
+				demoBtns[i].addEventListener( "click", function( e ) {
+					document.execCommand( this.innerHTML );
+					return false;
+				});
+			}
+			for ( var j=0; j<valBtns.length; j++ ) {
+				valBtns[j].addEventListener( "click", function( e ) {
+					valu = window.prompt( "Enter a value!" );
+					document.execCommand( this.innerHTML, false, valu );
+					return false;
+				});
+			}
+
+		</script>
+
+	</body>
+</html>
